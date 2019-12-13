@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_5_oop_continue.homework;
+package ru.epam.javacore.lesson_5_oop_continue.homework.storage;
 
 public final class IdGenerator {
 
