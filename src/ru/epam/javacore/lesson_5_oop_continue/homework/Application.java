@@ -4,6 +4,7 @@ import ru.epam.javacore.lesson_5_oop_continue.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.Storage;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.initor.InMemoryStorageInitor;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.initor.StorageInitor;
+import ru.epam.javacore.lesson_6.homework.common.utils.ArrayUtils;
 
 import java.util.Arrays;
 
@@ -46,10 +47,7 @@ public class Application {
     printSeparator();
 
     System.out.println("SEARCH CARRIERS BY NAME = 'Carrier_Name'");
-    Carrier[] carriers = Storage.getCarriersByName("Carrier_Name");
-    for (Carrier carrier: carriers){
-      System.out.println(carrier);
-    }
+    ArrayUtils.printArray(Storage.getCarriersByName("Carrier_Name"));
   }
 
   private static void printSeparator() {
