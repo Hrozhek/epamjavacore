@@ -1,7 +1,7 @@
 package ru.epam.javacore.lesson_6.homework.storage.initor;
 
-import ru.epam.javacore.lesson_6.homework.cargo.ClothersCargo;
-import ru.epam.javacore.lesson_6.homework.cargo.FoodCargo;
+import ru.epam.javacore.lesson_6.homework.cargo.domain.ClothersCargo;
+import ru.epam.javacore.lesson_6.homework.cargo.domain.FoodCargo;
 import ru.epam.javacore.lesson_6.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_6.homework.storage.Storage;
 import ru.epam.javacore.lesson_6.homework.transportation.domain.Transportation;

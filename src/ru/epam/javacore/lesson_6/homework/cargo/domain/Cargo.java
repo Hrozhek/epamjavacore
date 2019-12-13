@@ -1,7 +1,7 @@
-package ru.epam.javacore.lesson_5_oop_continue.homework.cargo;
+package ru.epam.javacore.lesson_6.homework.cargo.domain;
 
 import ru.epam.javacore.lesson_4_oop_continue.homework.transportation.Transportation;
-import ru.epam.javacore.lesson_5_oop_continue.homework.common.domain.BaseEntity;
+import ru.epam.javacore.lesson_6.homework.common.domain.BaseEntity;
 
 import java.util.Arrays;
 

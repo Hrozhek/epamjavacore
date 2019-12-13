@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_6.homework.cargo;
+package ru.epam.javacore.lesson_6.homework.cargo.domain;
 
 public class ClothersCargo extends Cargo {
 
