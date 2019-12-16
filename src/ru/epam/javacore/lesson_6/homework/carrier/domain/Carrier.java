@@ -1,7 +1,7 @@
 package ru.epam.javacore.lesson_6.homework.carrier.domain;
 
 
-import ru.epam.javacore.lesson_6.homework.common.domain.BaseEntity;
+import ru.epam.javacore.lesson_6.homework.common.business.domain.BaseEntity;
 import ru.epam.javacore.lesson_6.homework.transportation.domain.Transportation;
 
 public class Carrier extends BaseEntity {

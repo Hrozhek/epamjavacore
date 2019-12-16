@@ -3,96 +3,26 @@ package ru.epam.javacore.lesson_6.homework.storage;
 
 import ru.epam.javacore.lesson_6.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_6.homework.carrier.domain.Carrier;
-import ru.epam.javacore.lesson_6.homework.common.utils.ArrayUtils;
+import ru.epam.javacore.lesson_6.homework.common.solutions.utils.ArrayUtils;
 import ru.epam.javacore.lesson_6.homework.transportation.domain.Transportation;
-
-import java.util.Objects;
 
 public class Storage {
 
   private static final int ARRAY_CAPACITY = 10;
 
-  private static Cargo[] cargos = new Cargo[ARRAY_CAPACITY];
-  private static int cargoIndex = 0;
+  public static Cargo[] cargos = new Cargo[ARRAY_CAPACITY];
+  public static int cargoIndex = 0;
 
-  private static Carrier[] carriers = new Carrier[ARRAY_CAPACITY];
-  private static int carrierIndex = 0;
+  public static Carrier[] carriers = new Carrier[ARRAY_CAPACITY];
+  public static int carrierIndex = 0;
 
-  private static Transportation[] transportations = new Transportation[ARRAY_CAPACITY];
-  private static int transportationIndex = 0;
+  public static Transportation[] transportations = new Transportation[ARRAY_CAPACITY];
+  public static int transportationIndex = 0;
 
-  public static void addCargo(Cargo cargo) {
-    cargo.setId(IdGenerator.generateId());
-    cargos[cargoIndex] = cargo;
-    cargoIndex++;
 
-    if (cargoIndex == cargos.length) {
-      Cargo[] newCargos = new Cargo[cargos.length * 2];
-      ArrayUtils.copyArray(cargos, newCargos);
-      cargos = newCargos;
-    }
-  }
-
-  public static Cargo getCargoById(long id) {
-    for (Cargo cargo : cargos) {
-      if (cargo != null && Long.valueOf(id).equals(cargo.getId())) {
-        return cargo;
-      }
-    }
-
-    return null;
-  }
-
-  public static Cargo[] getCargosByName(String name) {
-    Cargo[] result = new Cargo[cargos.length];
-
-    int curIndex = 0;
-    for (Cargo cargo : cargos) {
-      if (cargo != null && Objects.equals(cargo.getName(), name)) {
-        result[curIndex++] = cargo;
-      }
-    }
-
-    return result;
-  }
 
   public static void printAllCargos() {
     ArrayUtils.printArray(cargos);
-  }
-
-  public static void addCarrier(Carrier carrier) {
-    carrier.setId(IdGenerator.generateId());
-    carriers[carrierIndex] = carrier;
-    carrierIndex++;
-
-    if (carrierIndex == carriers.length) {
-      Carrier[] newCarriers = new Carrier[carriers.length * 2];
-      ArrayUtils.copyArray(carriers, newCarriers);
-      carriers = newCarriers;
-    }
-  }
-
-  public static Carrier getCarrierById(long id) {
-    for (Carrier carrier : carriers) {
-      if (carrier != null && Long.valueOf(id).equals(carrier.getId())) {
-        return carrier;
-      }
-    }
-
-    return null;
-  }
-
-  public static Carrier[] getCarriersByName(String name) {
-    Carrier[] result = new Carrier[carriers.length];
-
-    int curIndex = 0;
-    for (Carrier carrier : carriers) {
-      if (carrier != null && Objects.equals(carrier.getName(), name)) {
-        result[curIndex++] = carrier;
-      }
-    }
-
-    return result;
   }
 
   public static void printAllCarriers() {

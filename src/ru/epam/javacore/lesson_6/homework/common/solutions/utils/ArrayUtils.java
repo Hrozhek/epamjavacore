@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_6.homework.common.utils;
+package ru.epam.javacore.lesson_6.homework.common.solutions.utils;
 
 public final class ArrayUtils {
 
@@ -15,6 +15,10 @@ public final class ArrayUtils {
         System.out.println(obj);
       }
     }
+  }
+
+  public static void removeElement(Object[] arr, int index) {
+    System.arraycopy(arr, index + 1, arr, index, arr.length - 1 - index);
   }
 
 }

@@ -2,7 +2,7 @@ package ru.epam.javacore.lesson_6.homework.transportation.domain;
 
 import ru.epam.javacore.lesson_6.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_6.homework.carrier.domain.Carrier;
-import ru.epam.javacore.lesson_6.homework.common.domain.BaseEntity;
+import ru.epam.javacore.lesson_6.homework.common.business.domain.BaseEntity;
 
 import java.util.Date;
 

@@ -1,10 +1,9 @@
 package ru.epam.javacore.lesson_5_oop_continue.homework;
 
-import ru.epam.javacore.lesson_5_oop_continue.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.Storage;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.initor.InMemoryStorageInitor;
 import ru.epam.javacore.lesson_5_oop_continue.homework.storage.initor.StorageInitor;
-import ru.epam.javacore.lesson_6.homework.common.utils.ArrayUtils;
+import ru.epam.javacore.lesson_6.homework.common.solutions.utils.ArrayUtils;
 
 import java.util.Arrays;
 

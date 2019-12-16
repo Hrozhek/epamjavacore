@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_6.homework.common.domain;
+package ru.epam.javacore.lesson_6.homework.common.business.domain;
 
 public abstract class BaseEntity {
   protected Long id;
