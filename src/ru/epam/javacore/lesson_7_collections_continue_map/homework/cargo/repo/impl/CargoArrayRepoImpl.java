@@ -5,13 +5,11 @@ import static ru.epam.javacore.lesson_7_collections_continue_map.homework.common
 import static ru.epam.javacore.lesson_7_collections_continue_map.homework.storage.Storage.cargoArray;
 import static ru.epam.javacore.lesson_7_collections_continue_map.homework.storage.Storage.cargoIndex;
 
-import ru.epam.javacore.lesson_5_oop_continue.homework.common.domain.BaseEntity;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.repo.CargoRepo;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.common.solutions.utils.ArrayUtils;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.storage.IdGenerator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;

@@ -4,6 +4,7 @@ import static ru.epam.javacore.lesson_7_collections_continue_map.homework.storag
 
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.repo.CargoRepo;
+import ru.epam.javacore.lesson_7_collections_continue_map.homework.storage.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ public class CargoCollectionRepoImpl implements CargoRepo {
 
   @Override
   public void add(Cargo carrier) {
+    carrier.setId(IdGenerator.generateId());
     cargoCollection.add(carrier);
   }
 

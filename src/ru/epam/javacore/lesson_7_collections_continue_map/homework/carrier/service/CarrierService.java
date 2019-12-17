@@ -13,4 +13,5 @@ public interface CarrierService extends CommonService {
   List<Carrier> getByName(String name);
 
   List<Carrier> getAll();
+
 }
