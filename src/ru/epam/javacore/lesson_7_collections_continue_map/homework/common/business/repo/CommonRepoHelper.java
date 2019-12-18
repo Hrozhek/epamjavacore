@@ -1,5 +1,7 @@
 package ru.epam.javacore.lesson_7_collections_continue_map.homework.common.business.repo;
 
+import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.domain.Cargo;
+import ru.epam.javacore.lesson_7_collections_continue_map.homework.cargo.domain.ClothersCargo;
 import ru.epam.javacore.lesson_7_collections_continue_map.homework.common.business.domain.BaseEntity;
 
 public final class CommonRepoHelper {
