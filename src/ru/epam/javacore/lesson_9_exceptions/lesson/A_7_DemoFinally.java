@@ -1,6 +1,6 @@
 package ru.epam.javacore.lesson_9_exceptions.lesson;
 
-public class A_7_ {
+public class A_7_DemoFinally {
     public static void main(String[] args) {
         // int divide = divide(10, 0);
         // System.out.println(divide);
