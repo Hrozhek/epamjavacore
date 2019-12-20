@@ -1,5 +1,8 @@
 package ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.repo.impl;
 
+import static ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.CargoField.NAME;
+import static ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.CargoField.WEIGHT;
+
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.CargoField;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.repo.CargoRepo;
@@ -12,8 +15,8 @@ import java.util.List;
 
 public abstract class CommonCargoRepo implements CargoRepo {
 
-  private static final List<CargoField> FIELDS_ORDER_TO_SORT_CARGOS = Arrays
-      .asList(CargoField.NAME, CargoField.WEIGHT);
+  private static final List<CargoField> FIELDS_ORDER_TO_SORT_CARGOS = Arrays.asList(NAME, WEIGHT);
+
   private static final Comparator<Cargo> CARGO_NAME_COMPARATOR = new Comparator<Cargo>() {
     @Override
     public int compare(Cargo o1, Cargo o2) {
@@ -39,7 +42,7 @@ public abstract class CommonCargoRepo implements CargoRepo {
           if (result == null) {
             result = getComparatorForCargoField(cargoField);
           } else {
-            result.thenComparing(getComparatorForCargoField(cargoField));
+            result = result.thenComparing(getComparatorForCargoField(cargoField));
           }
         }
       }

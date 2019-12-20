@@ -1,5 +1,6 @@
 package ru.epam.javacore.lesson_8_collections_continue_map.homework.application;
 
+import static java.util.Collections.singletonList;
 import static ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.CargoField.NAME;
 import static ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.CargoField.WEIGHT;
 import static ru.epam.javacore.lesson_8_collections_continue_map.homework.common.solutions.search.OrderType.ASC;
@@ -79,12 +80,12 @@ public class Application {
   }
 
   private static void demoSortOperations() {
-   /* demoCargoSorting(singletonList(NAME), ASC);
+    demoCargoSorting(singletonList(NAME), ASC);
     demoCargoSorting(singletonList(NAME), DESC);
 
     demoCargoSorting(singletonList(WEIGHT), ASC);
     demoCargoSorting(singletonList(WEIGHT), DESC);
-*/
+
     demoCargoSorting(Arrays.asList(NAME, WEIGHT), ASC);
     demoCargoSorting(Arrays.asList(NAME, WEIGHT), DESC);
   }
