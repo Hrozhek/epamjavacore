@@ -5,11 +5,13 @@ import static ru.epam.javacore.lesson_8_collections_continue_map.homework.storag
 
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.search.CargoSearchCondition;
+import ru.epam.javacore.lesson_8_collections_continue_map.homework.common.solutions.search.OrderType;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.common.solutions.utils.CollectionUtils;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.storage.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -73,12 +75,13 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
   }
 
   @Override
-  public List<Cargo> search(CargoSearchCondition cargoSearchCondition) {
+  public List<Cargo> search(CargoSearchCondition searchCondition) {
     List<Cargo> cargos = getAll();
 
     if (CollectionUtils.isNotEmpty(cargos)) {
-      if (cargoSearchCondition.needSorting()) {
-        cargos.sort(createCargoComparator(cargoSearchCondition));
+      if (searchCondition.needSorting()) {
+        Comparator<Cargo> cargoComparator = createCargoComparator(searchCondition);
+        cargos.sort(searchCondition.isAscOrdering() ? cargoComparator : cargoComparator.reversed());
       }
     }
 

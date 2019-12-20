@@ -13,6 +13,7 @@ import ru.epam.javacore.lesson_8_collections_continue_map.homework.storage.IdGen
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -106,7 +107,16 @@ public class CarrierArrayRepoImpl implements CarrierRepo {
 
   @Override
   public List<Carrier> getAll() {
-    return Arrays.asList(carrierArray);
+    List<Carrier> carriers = Arrays.asList(carrierArray);
+    Iterator<Carrier> iter = carriers.iterator();
+
+    while (iter.hasNext()) {
+      if (iter.next() == null) {
+        iter.remove();
+      }
+    }
+
+    return carriers;
   }
 
   @Override

@@ -10,6 +10,7 @@ import ru.epam.javacore.lesson_8_collections_continue_map.homework.transportatio
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.transportation.service.TransportationService;
 
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class InMemoryStorageInitor implements StorageInitor {
 
@@ -44,7 +45,8 @@ public class InMemoryStorageInitor implements StorageInitor {
   private ClothersCargo createClothersCargo(int index) {
     ClothersCargo cargo = new ClothersCargo();
     cargo.setSize("Clothers_Size_" + index);
-    cargo.setName("Clothers_Name_" + index);
+    cargo.setName("Jeans");
+    cargo.setWeight(ThreadLocalRandom.current().nextInt(1, 100 + 1));
 
     return cargo;
   }
@@ -53,7 +55,8 @@ public class InMemoryStorageInitor implements StorageInitor {
     FoodCargo cargo = new FoodCargo();
     cargo.setExpirationDate(new Date());
     cargo.setStoreTemperature(index);
-    cargo.setName("FoodCargo_Name_" + index);
+    cargo.setWeight(ThreadLocalRandom.current().nextInt(1, 100 + 1));
+    cargo.setName("Milk");
 
     return cargo;
   }

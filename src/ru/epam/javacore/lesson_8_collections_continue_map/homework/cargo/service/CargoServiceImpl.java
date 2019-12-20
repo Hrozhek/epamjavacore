@@ -2,6 +2,7 @@ package ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.servic
 
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.repo.CargoRepo;
+import ru.epam.javacore.lesson_8_collections_continue_map.homework.cargo.search.CargoSearchCondition;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,5 +59,10 @@ public class CargoServiceImpl implements CargoService {
     if (cargo != null) {
       cargoRepo.update(cargo);
     }
+  }
+
+  @Override
+  public List<Cargo> search(CargoSearchCondition cargoSearchCondition) {
+    return cargoRepo.search(cargoSearchCondition);
   }
 }

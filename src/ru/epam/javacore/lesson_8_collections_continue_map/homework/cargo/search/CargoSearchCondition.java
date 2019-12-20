@@ -35,4 +35,8 @@ public class CargoSearchCondition {
   public boolean shouldSortByField(CargoField cargoField) {
     return sortFields != null && sortFields.contains(cargoField);
   }
+
+  public boolean isAscOrdering() {
+    return orderType == null || OrderType.ASC.equals(orderType);
+  }
 }
