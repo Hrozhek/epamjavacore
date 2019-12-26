@@ -33,8 +33,9 @@ public class TextFileDataInitor implements StorageInitor {
 
   @Override
   public void initStorage() throws InitStorageException {
+    File file = null;
     try {
-      File file = getFileWithInitData();
+      file = getFileWithInitData();
 
       Map<String, Cargo> cargoMap = parseCargosFromFile(file);
       Map<String, Carrier> carrierMap = parseCarriersFromFile(file);
@@ -48,6 +49,10 @@ public class TextFileDataInitor implements StorageInitor {
     } catch (Exception e) {
       e.printStackTrace();
       throw new InitStorageException(e.getMessage());
+    } finally {
+      if (file != null) {
+        file.delete();
+      }
     }
   }
 
@@ -89,12 +94,12 @@ public class TextFileDataInitor implements StorageInitor {
       Cargo cargo;
       if (CargoType.CLOTHERS.equals(cargoType)) {
         ClothersCargo clothersCargo = new ClothersCargo();
-        clothersCargo.setSize(cargoData[index++]);
-        clothersCargo.setMaterial(cargoData[index]);
+        clothersCargo.setSize(cargoData[index++].trim());
+        clothersCargo.setMaterial(cargoData[index].trim());
         cargo = clothersCargo;
       } else {
         FoodCargo foodCargo = new FoodCargo();
-        foodCargo.setExpirationDate(JavaUtilDataUtils.valueOf(cargoData[index++]));
+        foodCargo.setExpirationDate(JavaUtilDataUtils.valueOf(cargoData[index++].trim()));
         foodCargo.setStoreTemperature(Integer.parseInt(cargoData[index].trim()));
         cargo = foodCargo;
       }
@@ -128,11 +133,11 @@ public class TextFileDataInitor implements StorageInitor {
 
     if (data.length > 0) {
       int index = 0;
-      String id = data[index++];
+      String id = data[index++].trim();
       Carrier carrier = new Carrier();
-      carrier.setName(data[index++]);
-      carrier.setAddress(data[index++]);
-      carrier.setCarrierType(CarrierType.valueOf(data[index]));
+      carrier.setName(data[index++].trim());
+      carrier.setAddress(data[index++].trim());
+      carrier.setCarrierType(CarrierType.valueOf(data[index].trim()));
 
       return new SimpleEntry<>(id, carrier);
     }
@@ -160,13 +165,13 @@ public class TextFileDataInitor implements StorageInitor {
     if (data.length > 0) {
       result = new ParsedTransportation();
       int index = 0;
-      result.cargoRef = data[index++];
-      result.carrierRef = data[index++];
+      result.cargoRef = data[index++].trim();
+      result.carrierRef = data[index++].trim();
 
       Transportation transportation = new Transportation();
-      transportation.setDescription(data[index++]);
-      transportation.setBillTo(data[index++]);
-      transportation.setTransportationBeginDate(JavaUtilDataUtils.valueOf(data[index]));
+      transportation.setDescription(data[index++].trim());
+      transportation.setBillTo(data[index++].trim());
+      transportation.setTransportationBeginDate(JavaUtilDataUtils.valueOf(data[index].trim()));
       result.transportation = transportation;
     }
 
@@ -183,16 +188,15 @@ public class TextFileDataInitor implements StorageInitor {
       while ((line = reader.readLine()) != null) {
         line = line.trim();
 
-        if (!sectionHasStarted && sectionLabel.equals(line)) {
-          sectionHasStarted = true;
-        }
-
         if (sectionHasStarted) {
-          result.add(line);
-
           if (line.isEmpty()) {
             break;
           }
+          result.add(line);
+        }
+
+        if (!sectionHasStarted && sectionLabel.equals(line)) {
+          sectionHasStarted = true;
         }
       }
     }
@@ -213,6 +217,7 @@ public class TextFileDataInitor implements StorageInitor {
             cargo.getTransportations() == null ? new ArrayList<>() : cargo.getTransportations();
         transportations.add(transportation);
         transportation.setCargo(cargo);
+        cargo.setTransportations(transportations);
       }
 
       if (carrier != null) {
@@ -220,6 +225,7 @@ public class TextFileDataInitor implements StorageInitor {
             carrier.getTransportations() == null ? new ArrayList<>() : carrier.getTransportations();
         transportations.add(transportation);
         transportation.setCarrier(carrier);
+        carrier.setTransportations(transportations);
       }
     }
   }
@@ -251,6 +257,4 @@ public class TextFileDataInitor implements StorageInitor {
       ServiceHolder.getInstance().getTransportationService().save(transportation);
     }
   }
-
-
 }
