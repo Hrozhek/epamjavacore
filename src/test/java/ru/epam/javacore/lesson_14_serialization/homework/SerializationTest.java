@@ -1,14 +1,15 @@
 package ru.epam.javacore.lesson_14_serialization.homework;
 
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static ru.epam.javacore.lesson_14_serialization.homework.common.solutions.comparator.SimpleComparator.LONG_COMPARATOR;
 import static ru.epam.javacore.lesson_14_serialization.homework.common.solutions.comparator.SimpleComparator.STRING_COMPARATOR;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.epam.javacore.lesson_14_serialization.homework.cargo.domain.ClothersCargo;
 import ru.epam.javacore.lesson_14_serialization.homework.cargo.domain.FoodCargo;
 
@@ -25,100 +26,77 @@ import java.util.List;
 
 public class SerializationTest {
 
+  private Path tempFile = null;
+
+  @BeforeEach
+  public void createTempFile() throws IOException {
+    tempFile = Files.createTempFile("temp", "test");
+  }
+
+  @AfterEach
+  public void deleteTempFile() {
+    deleteFile(tempFile);
+  }
+
   @Test
   public void testSerializationFoodCargo() throws Exception {
-    Path path = null;
-    try {
-      FoodCargo cargo = prepareFood();
-      path = Files.createTempFile("temp", "food");
-      String pathToFile = path.toAbsolutePath().toString();
+    FoodCargo cargo = prepareFood();
+    String pathToFile = tempFile.toAbsolutePath().toString();
 
-      serializeToFile(cargo, pathToFile);
-      FoodCargo deserialized = readSerializedObjectFromFile(pathToFile);
+    serializeToFile(cargo, pathToFile);
+    FoodCargo deserialized = readSerializedObjectFromFile(pathToFile);
 
-      assertTrue(areFoodEntitiesEquals(cargo, deserialized));
-    } finally {
-      deleteFile(path);
-    }
+
+    Assertions.assertTrue(areFoodEntitiesEquals(cargo, deserialized));
   }
 
   @Test
   public void testSerializationFoodCargos() throws Exception {
-    Path path = null;
-    try {
-      path = Files.createTempFile("temp", "foods");
-      String pathToFile = path.toAbsolutePath().toString();
-      List<FoodCargo> foods = Arrays.asList(prepareFood(), prepareFood());
-      serializeToFile(foods, pathToFile);
-      List<FoodCargo> deserialized = readSerializedObjectFromFile(pathToFile);
+    List<FoodCargo> foods = Arrays.asList(prepareFood(), prepareFood());
+    String pathToFile = tempFile.toAbsolutePath().toString();
+    serializeToFile(foods, pathToFile);
+    List<FoodCargo> deserialized = readSerializedObjectFromFile(pathToFile);
 
-      assertTrue(areFoodEntitiesEquals(foods, deserialized));
-    } finally {
-      deleteFile(path);
-    }
+    Assertions.assertTrue(areFoodEntitiesEquals(foods, deserialized));
   }
 
   @Test
   public void testSerializationFoodNullCargo() throws Exception {
-    Path path = null;
-    try {
-      path = Files.createTempFile("temp", "food_null");
-      String pathToFile = path.toAbsolutePath().toString();
-      serializeToFile(null, pathToFile);
-      Object deserialized = readSerializedObjectFromFile(pathToFile);
+    String pathToFile = tempFile.toAbsolutePath().toString();
+    serializeToFile(null, pathToFile);
+    Object deserialized = readSerializedObjectFromFile(pathToFile);
 
-      assertNull(deserialized);
-    } finally {
-      deleteFile(path);
-    }
+    Assertions.assertNull(deserialized);
   }
 
   @Test
   public void testSerializationClothersCargo() throws Exception {
-    Path path = null;
-    try {
-      ClothersCargo clothers = prepareClothers();
-      path = Files.createTempFile("temp", "clothers");
-      String pathToFile = path.toAbsolutePath().toString();
-      serializeToFile(clothers, pathToFile);
-      ClothersCargo deserialized = readSerializedObjectFromFile(pathToFile);
+    ClothersCargo clothers = prepareClothers();
+    String pathToFile = tempFile.toAbsolutePath().toString();
+    serializeToFile(clothers, pathToFile);
+    ClothersCargo deserialized = readSerializedObjectFromFile(pathToFile);
 
-      assertTrue(areClotherEntitiesEquals(clothers, deserialized));
-    } finally {
-      deleteFile(path);
-    }
+    Assertions.assertTrue(areClotherEntitiesEquals(clothers, deserialized));
   }
 
   @Test
   public void testSerializationClothersCargos() throws Exception {
-    Path path = null;
-    try {
-      List<ClothersCargo> clothers = Arrays.asList(prepareClothers(), prepareClothers());
-      path = Files.createTempFile("temp", "clothers_multi");
-      String pathToFile = path.toAbsolutePath().toString();
+    List<ClothersCargo> clothers = Arrays.asList(prepareClothers(), prepareClothers());
+    String pathToFile = tempFile.toAbsolutePath().toString();
 
-      serializeToFile(clothers, pathToFile);
-      List<ClothersCargo> deserialized = readSerializedObjectFromFile(pathToFile);
+    serializeToFile(clothers, pathToFile);
+    List<ClothersCargo> deserialized = readSerializedObjectFromFile(pathToFile);
 
-      assertTrue(areClotherEntitiesEquals(clothers, deserialized));
-    } finally {
-      deleteFile(path);
-    }
+    Assertions.assertTrue(areClotherEntitiesEquals(clothers, deserialized));
   }
 
   @Test
   public void testSerializationClothersNullCargos() throws Exception {
-    Path path = null;
-    try {
-      path = Files.createTempFile("temp", "clothers_multi");
-      String pathToFile = path.toAbsolutePath().toString();
+    String pathToFile = tempFile.toAbsolutePath().toString();
+    serializeToFile(null, pathToFile);
+    Object deserialized = readSerializedObjectFromFile(pathToFile);
 
-      serializeToFile(null, pathToFile);
-      Object deserialized = readSerializedObjectFromFile(pathToFile);
-      assertNull(deserialized);
-    } finally {
-      deleteFile(path);
-    }
+    Assertions.assertNull(deserialized);
   }
 
   private <T> void serializeToFile(T entity, String file) throws Exception {
