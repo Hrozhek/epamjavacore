@@ -1,8 +1,6 @@
-package ru.epam.javacore.lesson_15.lesson.e_syncronization;
+package ru.epam.javacore.lesson_15_concurrency.lesson.e_syncronization;
 
-import ru.epam.javacore.lesson_15.lesson.b_thread_creation.ThreadUtils;
-
-import java.util.Collections;
+import ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation.ThreadUtils;
 
 public class A_WC {
 

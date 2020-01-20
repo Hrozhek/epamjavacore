@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_15.lesson.b_thread_creation;
+package ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation;
 
 public class B_Thread_Creation_With_runnable implements Runnable {
 
