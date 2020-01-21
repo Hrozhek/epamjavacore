@@ -57,7 +57,7 @@ public class CargoParser implements Runnable {
     this.cargoMap = cargoMap;
   }
 
-  public Map<String, Cargo> getCargoMap() {
+  public synchronized Map<String, Cargo> getCargoMap() {
     return this.cargoMap;
   }
 }

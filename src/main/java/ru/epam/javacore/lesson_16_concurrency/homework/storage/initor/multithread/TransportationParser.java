@@ -57,7 +57,7 @@ public class TransportationParser implements Runnable {
     this.transportations = transportations;
   }
 
-  public List<ParsedTransportation> getTransportations() {
+  public synchronized List<ParsedTransportation> getTransportations() {
     return this.transportations;
   }
 }

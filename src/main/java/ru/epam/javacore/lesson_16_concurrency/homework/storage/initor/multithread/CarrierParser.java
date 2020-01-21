@@ -58,7 +58,7 @@ public class CarrierParser implements Runnable{
     this.carrierMap = carrierMap;
   }
 
-  public Map<String, Carrier> getCarrierMap() {
+  public synchronized Map<String, Carrier> getCarrierMap() {
     return this.carrierMap;
   }
 }
