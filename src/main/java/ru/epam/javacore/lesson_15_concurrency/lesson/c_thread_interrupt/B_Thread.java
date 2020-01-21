@@ -1,6 +1,6 @@
-package ru.epam.javacore.lesson_15.lesson.c_thread_interrupt;
+package ru.epam.javacore.lesson_15_concurrency.lesson.c_thread_interrupt;
 
-import static ru.epam.javacore.lesson_15.lesson.b_thread_creation.ThreadUtils.getCurrentThreadName;
+import static ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation.ThreadUtils.getCurrentThreadName;
 
 public class B_Thread extends Thread {
 

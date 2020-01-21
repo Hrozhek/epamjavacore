@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_15.lesson.a_immutable.c_immutable;
+package ru.epam.javacore.lesson_15_concurrency.lesson.a_immutable.c_immutable;
 
 public class Passport {
     private int seria;

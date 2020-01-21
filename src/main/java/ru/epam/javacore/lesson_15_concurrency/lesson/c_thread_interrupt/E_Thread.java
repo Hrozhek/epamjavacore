@@ -1,20 +1,21 @@
-package ru.epam.javacore.lesson_15.lesson.c_thread_interrupt;
+package ru.epam.javacore.lesson_15_concurrency.lesson.c_thread_interrupt;
 
-import ru.epam.javacore.lesson_15.lesson.b_thread_creation.ThreadUtils;
+import ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation.ThreadUtils;
 
-import static ru.epam.javacore.lesson_15.lesson.b_thread_creation.ThreadUtils.getCurrentThreadName;
+import static ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation.ThreadUtils.getCurrentThreadName;
 
-public class D_Thread extends Thread {
+public class E_Thread extends Thread {
     private boolean stop = false;
 
     @Override
     public void run() {
-        while (!stop) {
+        while (!this.isInterrupted()) {
             System.out.println("AAAAA " + getCurrentThreadName());
             try {
                 ThreadUtils.sleepSec(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                this.interrupt();
             }
         }
 
@@ -26,10 +27,11 @@ public class D_Thread extends Thread {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        D_Thread d_thread = new D_Thread();
+        E_Thread d_thread = new E_Thread();
         d_thread.start();
+
         ThreadUtils.sleepSec(1);
-        d_thread.setStop(true);
+        d_thread.interrupt();
 
         System.out.println("Main finish");
     }

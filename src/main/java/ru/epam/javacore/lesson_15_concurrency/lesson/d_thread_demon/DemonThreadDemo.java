@@ -1,6 +1,6 @@
-package ru.epam.javacore.lesson_15.lesson.d_thread_demon;
+package ru.epam.javacore.lesson_15_concurrency.lesson.d_thread_demon;
 
-import ru.epam.javacore.lesson_15.lesson.b_thread_creation.ThreadUtils;
+import ru.epam.javacore.lesson_15_concurrency.lesson.b_thread_creation.ThreadUtils;
 
 public class DemonThreadDemo extends Thread {
     public DemonThreadDemo() {
