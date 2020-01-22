@@ -9,22 +9,22 @@ public class A_3_AccountDemo_Probleb_DeadLock_Solution_2 {
     private static Boolean ff = true;
     private static AtomicInteger index = new AtomicInteger(0);
 
-    //acc_1
-    //acc_2
+    //acc_1 100
+    //acc_2 200
 
-    //acc_2
-    //acc_1
+    //acc_2 200
+    //acc_1 100
     private static Thread transfer2(Account src, Account dest, int money) {
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                synchronized (src){
-
+                synchronized (src) {
+                    //0-100;
                 }
 
-                synchronized (dest){
-
+                synchronized (dest) {
+                    //1000
                 }
             }
         });
