@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_18_java_8.lesson.a_1_collection.jdk12;
+package ru.epam.javacore.lesson_18_19_java_8.lessons.lesson_1.a_1_collection.jdk12;
 
 public interface SuperCollection<T> {
     void add(T t);
