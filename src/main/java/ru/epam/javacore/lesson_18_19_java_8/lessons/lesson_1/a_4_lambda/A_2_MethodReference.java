@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_18_java_8.lessons.a_4_lambda;
+package ru.epam.javacore.lesson_18_19_java_8.lessons.lesson_1.a_4_lambda;
 
 import java.util.ArrayList;
 import java.util.Comparator;
