@@ -1,10 +1,9 @@
-package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lessons_3;
+package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lesson_3;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

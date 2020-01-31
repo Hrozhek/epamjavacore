@@ -1,6 +1,5 @@
-package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lessons_3;
+package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lesson_3;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

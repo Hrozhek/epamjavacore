@@ -1,4 +1,4 @@
-package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lessons_3;
+package ru.epam.javacore.lesson_18_19_20_java_8.lessons.lesson_3;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
