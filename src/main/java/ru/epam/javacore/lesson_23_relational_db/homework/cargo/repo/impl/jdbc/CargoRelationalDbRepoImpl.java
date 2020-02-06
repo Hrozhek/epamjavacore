@@ -76,13 +76,14 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
         + "ENTITY_TYPE, "
         + "FOOD_EXPIRATION_DATE, "
         + "FOOD_STORE_TEMPERATURE)"
-        + " VALUES (?, ?, ?, ?,?,?)";
+        + " VALUES (?, ?, ?, ?, ?, ?)";
 
     QueryWrapper.executeUpdate(sql, ps -> {
-      int index = 1;
+      int index = 0;
       ps.setLong(++index, foodCargo.getId());
       ps.setString(++index, foodCargo.getName());
       ps.setInt(++index, foodCargo.getWeight());
+      ps.setString(++index, CargoType.FOOD.toString());
       ps.setTimestamp(++index, Timestamp.valueOf(foodCargo.getExpirationDate()));
       ps.setInt(++index, foodCargo.getStoreTemperature());
     });
@@ -99,10 +100,11 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
         + " VALUES (?, ?, ?, ?,?,?)";
 
     QueryWrapper.executeUpdate(sql, ps -> {
-      int index = 1;
+      int index = 0;
       ps.setLong(++index, clothersCargo.getId());
       ps.setString(++index, clothersCargo.getName());
       ps.setInt(++index, clothersCargo.getWeight());
+      ps.setString(++index, CargoType.CLOTHERS.toString());
       ps.setString(++index, clothersCargo.getSize());
       ps.setString(++index, clothersCargo.getMaterial());
     });

@@ -20,59 +20,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RelationalDbStorageInitor implements StorageInitor {
-  private static final String DATABASE_CONFIG_PATH = "/ru/epam/javacore/lesson_23_relational_db/db_config/config.properties";
   private static final String DDL_SCRIPT_PATH = "/ru/epam/javacore/lesson_23_relational_db/db_config/create-schema.sql";
   private static final String DML_SCRIPT_PATH = "/ru/epam/javacore/lesson_23_relational_db/db_config/init-data.sql";
 
   @Override
   public void initStorage() throws InitStorageException {
     try {
-      prepareDataSourceConfig();
       createDataBaseStructure();
       fillDataBaseWithData();
     } catch (Exception e) {
       throw new InitStorageException(e.getMessage());
     }
-  }
-
-  private void prepareDataSourceConfig() throws Exception {
-    HikariCpDataSource.HikariCpDataSourceBuilder hikariCpDataSourceBuilder = new HikariCpDataSource.HikariCpDataSourceBuilder();
-    Map<DatabaseConfig, String> dbConfigs = readDbConfigFromResources();
-
-    dbConfigs.forEach((param, value) -> {
-      switch (param) {
-
-        case URL: {
-          hikariCpDataSourceBuilder.appendUrl(value);
-          break;
-        }
-        case USER: {
-          hikariCpDataSourceBuilder.appendUserName(value);
-          break;
-        }
-        case PASSWORD: {
-          hikariCpDataSourceBuilder.appendPassword(value);
-          break;
-        }
-
-        case DRIVER: {
-          hikariCpDataSourceBuilder.appendDriver(value);
-          break;
-        }
-      }
-    });
-    HikariCpDataSource.init(hikariCpDataSourceBuilder);
-  }
-
-  private Map<DatabaseConfig, String> readDbConfigFromResources() throws Exception {
-    Properties props = new Properties();
-    props.load(this.getClass().getResourceAsStream(DATABASE_CONFIG_PATH));
-
-    Map<DatabaseConfig, String> result = new HashMap<>();
-    Arrays.stream(DatabaseConfig.values()).forEach(dbConfig ->
-        result.put(dbConfig, props.getProperty(dbConfig.getPropName())));
-
-    return result;
   }
 
   private void createDataBaseStructure() throws Exception {

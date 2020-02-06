@@ -3,6 +3,7 @@ package ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -27,7 +28,7 @@ public final class DateUtils {
   }
 
   public static LocalDateTime valueOf(String dateStr) {
-    return LocalDateTime.parse(dateStr, formatter);
+    return LocalDate.parse(dateStr, formatter).atStartOfDay();
   }
 
 }

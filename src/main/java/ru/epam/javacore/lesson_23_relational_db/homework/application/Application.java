@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 
 public class Application {
@@ -44,7 +45,7 @@ public class Application {
       carrierService = ServiceHolder.getInstance().getCarrierService();
       transportationService = ServiceHolder.getInstance().getTransportationService();
 
-      StorageInitor storageInitor = getStorageInitor(InitStorageType.SQL_SCRIPTS);
+      StorageInitor storageInitor = getStorageInitor(InitStorageType.XML_DOM_FILE);
       storageInitor.initStorage();
 
       printStorageData();
@@ -132,8 +133,8 @@ public class Application {
     cargoSearchCondition.setSortFields(new LinkedHashSet<>(sortFields));
     System.out.println(
         "---------Sorting '" + getOrderingConditionsAsString(cargoSearchCondition) + "'------");
-    cargoService.search(cargoSearchCondition);
-    cargoService.printAll();
+    List<Cargo> found = cargoService.search(cargoSearchCondition);
+    found.forEach(System.out::println);
     System.out.println();
   }
 

@@ -261,6 +261,16 @@ public class QueryWrapper {
     }
   }
 
+  public static int executeUpdate(String sql, Connection connection) throws SqlException {
+    try {
+      try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        return ps.executeUpdate();
+      }
+    } catch (Exception e) {
+      throw new SqlException(e);
+    }
+  }
+
   public static int executeUpdate(String sql, PreparedStatementIdentityFunc psIdentityFunc)
       throws SqlException {
     try {
