@@ -9,7 +9,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.cargo.domain.ClothersCa
 import ru.epam.javacore.lesson_23_relational_db.homework.cargo.domain.FoodCargo;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.CarrierType;
-import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.JavaUtilDateUtils;
+import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.DateUtils;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.fileinitor.BaseFileInitor;
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.domain.Transportation;
 
@@ -136,7 +136,7 @@ public class SaxHandler extends DefaultHandler {
     private void fillFoodCargoWithData(FoodCargo foodCargo, String tagPath, String content) throws ParseException {
         switch (tagPath) {
             case CargoPaths.EXPIRATION_DATE: {
-                foodCargo.setExpirationDate(JavaUtilDateUtils.valueOf(content));
+                foodCargo.setExpirationDate(DateUtils.valueOf(content));
                 break;
             }
             case CargoPaths.STORE_TEMPERATURE: {
@@ -188,7 +188,7 @@ public class SaxHandler extends DefaultHandler {
                 break;
             }
             case TransportationPaths.TRANSPORTATION_BEGIN_DATE: {
-                transportation.setTransportationBeginDate(JavaUtilDateUtils.valueOf(content));
+                transportation.setTransportationBeginDate(DateUtils.valueOf(content));
                 break;
             }
         }

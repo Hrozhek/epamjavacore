@@ -44,7 +44,7 @@ public class Application {
       carrierService = ServiceHolder.getInstance().getCarrierService();
       transportationService = ServiceHolder.getInstance().getTransportationService();
 
-      StorageInitor storageInitor = getStorageInitor(InitStorageType.MULTI_THREAD);
+      StorageInitor storageInitor = getStorageInitor(InitStorageType.SQL_SCRIPTS);
       storageInitor.initStorage();
 
       printStorageData();
@@ -54,6 +54,7 @@ public class Application {
 
       demoReportService();
     } catch (InitStorageException e) {
+      e.printStackTrace();
       e.getCause().printStackTrace();
     }catch (Exception e){
       e.printStackTrace();

@@ -52,6 +52,11 @@ public class TransportationArrayRepoImpl implements TransportationRepo {
   }
 
   @Override
+  public List<Transportation> getAllFetchingCargoAndCarrier() {
+    return getAll();
+  }
+
+  @Override
   public int countAll() {
     return getAll().size();
   }

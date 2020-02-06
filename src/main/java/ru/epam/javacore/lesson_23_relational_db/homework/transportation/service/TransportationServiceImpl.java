@@ -22,7 +22,7 @@ public class TransportationServiceImpl implements TransportationService {
 
   @Override
   public void printAll() {
-    List<Transportation> allTransportations = transportationRepo.getAll();
+    List<Transportation> allTransportations = transportationRepo.getAllFetchingCargoAndCarrier();
     for (Transportation transportation : allTransportations) {
       System.out.println(transportation);
     }

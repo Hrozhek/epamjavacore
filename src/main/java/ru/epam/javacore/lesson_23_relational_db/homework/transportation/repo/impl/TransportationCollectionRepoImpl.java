@@ -36,6 +36,11 @@ public class TransportationCollectionRepoImpl implements TransportationRepo {
   }
 
   @Override
+  public List<Transportation> getAllFetchingCargoAndCarrier() {
+    return getAll();
+  }
+
+  @Override
   public boolean update(Transportation transportation) {
     return true;
   }

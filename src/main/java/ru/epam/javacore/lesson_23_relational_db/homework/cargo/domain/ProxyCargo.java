@@ -62,6 +62,6 @@ public class ProxyCargo extends Cargo {
 
   @Override
   public CargoType getCargoType() {
-    throw new UnsupportedOperationException(ERROR_MSG);
+    return null;
   }
 }

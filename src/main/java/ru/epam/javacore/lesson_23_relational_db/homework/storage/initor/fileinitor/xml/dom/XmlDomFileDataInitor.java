@@ -15,7 +15,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.CarrierType;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.business.exception.checked.InitStorageException;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.FileUtils;
-import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.JavaUtilDateUtils;
+import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.DateUtils;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.xml.dom.XmlDomUtils;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.fileinitor.BaseFileInitor;
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.domain.Transportation;
@@ -23,6 +23,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.transportation.domain.T
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,7 +89,7 @@ public class XmlDomFileDataInitor extends BaseFileInitor {
     Cargo cargo;
     if (CargoType.FOOD.equals(cargoType)) {
       FoodCargo foodCargo = new FoodCargo();
-      Date expirationDate = JavaUtilDateUtils
+      LocalDateTime expirationDate = DateUtils
           .valueOf(getOnlyElementTextContent(cargoElem, "expirationDate"));
       foodCargo.setExpirationDate(expirationDate);
       foodCargo.setStoreTemperature(
@@ -164,7 +165,7 @@ public class XmlDomFileDataInitor extends BaseFileInitor {
     transportation.setDescription(getOnlyElementTextContent(transportationElement, "description"));
     String beginDataStr = getOnlyElementTextContent(transportationElement,
         "transportationBeginDate");
-    transportation.setTransportationBeginDate(JavaUtilDateUtils.valueOf(beginDataStr));
+    transportation.setTransportationBeginDate(DateUtils.valueOf(beginDataStr));
     result.setTransportation(transportation);
 
     return result;

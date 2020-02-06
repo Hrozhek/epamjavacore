@@ -18,7 +18,8 @@ final public class TransportationMapper {
     try {
       Transportation transportation = new Transportation();
       transportation.setId(rs.getLong("ID"));
-      transportation.setCargo(new ProxyCargo(rs.getLong("CARGO_ID")));
+      ProxyCargo cargo = new ProxyCargo(rs.getLong("CARGO_ID"));
+      transportation.setCargo(cargo);
       transportation.setCarrier(new ProxyCarrier(rs.getLong("CARRIER_ID")));
       transportation.setDescription(rs.getString("DESCRIPTION"));
       transportation.setBillTo(rs.getString("BILL_TO"));

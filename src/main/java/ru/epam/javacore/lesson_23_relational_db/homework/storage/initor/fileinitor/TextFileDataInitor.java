@@ -8,7 +8,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.CarrierType;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.business.exception.checked.InitStorageException;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.FileUtils;
-import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.JavaUtilDateUtils;
+import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.utils.DateUtils;
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.domain.Transportation;
 
 import java.io.BufferedReader;
@@ -92,7 +92,7 @@ public class TextFileDataInitor extends BaseFileInitor {
         cargo = clothersCargo;
       } else {
         FoodCargo foodCargo = new FoodCargo();
-        foodCargo.setExpirationDate(JavaUtilDateUtils.valueOf(cargoData[index++].trim()));
+        foodCargo.setExpirationDate(DateUtils.valueOf(cargoData[index++].trim()));
         foodCargo.setStoreTemperature(Integer.parseInt(cargoData[index].trim()));
         cargo = foodCargo;
       }
@@ -164,7 +164,7 @@ public class TextFileDataInitor extends BaseFileInitor {
       Transportation transportation = new Transportation();
       transportation.setDescription(data[index++].trim());
       transportation.setBillTo(data[index++].trim());
-      transportation.setTransportationBeginDate(JavaUtilDateUtils.valueOf(data[index].trim()));
+      transportation.setTransportationBeginDate(DateUtils.valueOf(data[index].trim()));
       result.setTransportation(transportation);
     }
 

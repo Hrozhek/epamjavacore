@@ -1,17 +1,15 @@
 package ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.jdbc;
 
-
-import static ru.epam.javacore.lesson_23_relational_db.homework.storage.Storage.carrierCollection;
-
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.CarrierRepo;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.repo.jdbc.QueryWrapper;
+import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.repo.jdbc.ResultSetExtractor;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.IdGenerator;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CarrierCollectionRepoImpl implements CarrierRepo {
+public class CarrierRelationalDbRepoImpl implements CarrierRepo {
 
   @Override
   public void save(Carrier carrier) {
@@ -45,7 +43,9 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
   @Override
   public Carrier[] findByName(String name) {
     String sql = "SELECT * FROM CARRIER WHERE NAME = ?";
-    return QueryWrapper.select(sql, CarrierMapper::mapCarrier).toArray(new Carrier[0]);
+    return QueryWrapper.select(sql, CarrierMapper::mapCarrier, ps -> {
+      ps.setString(1, name);
+    }).toArray(new Carrier[0]);
   }
 
   @Override
@@ -59,7 +59,8 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
 
   @Override
   public List<Carrier> getAll() {
-    return QueryWrapper.select("SELECT * FROM CARRIER", CarrierMapper::mapCarrier);
+    return QueryWrapper
+        .select("SELECT * FROM CARRIER", (ResultSetExtractor<Carrier>) CarrierMapper::mapCarrier);
   }
 
   @Override
@@ -72,5 +73,4 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
   public boolean update(Carrier carrier) {
     return true;
   }
-
 }

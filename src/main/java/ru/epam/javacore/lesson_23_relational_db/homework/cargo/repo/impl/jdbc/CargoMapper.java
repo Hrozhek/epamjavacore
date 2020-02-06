@@ -10,12 +10,16 @@ import java.sql.ResultSet;
 public final class CargoMapper {
 
   public static Cargo mapCargo(ResultSet rs) {
+    return mapCargo(rs, "");
+  }
+
+  public static Cargo mapCargo(ResultSet rs, String aliasPrefix) {
     try {
-      CargoType cargoType = CargoType.valueOf(rs.getString("ENTITY_TYPE"));
+      CargoType cargoType = CargoType.valueOf(rs.getString(aliasPrefix + "ENTITY_TYPE"));
       if (CargoType.CLOTHERS.equals(cargoType)) {
-        return mapClothersCargo(rs);
+        return mapClothersCargo(rs, aliasPrefix);
       } else {
-        return mapFoodCargo(rs);
+        return mapFoodCargo(rs, aliasPrefix);
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -23,25 +27,27 @@ public final class CargoMapper {
   }
 
 
-  private static FoodCargo mapFoodCargo(ResultSet rs) throws Exception {
+  private static FoodCargo mapFoodCargo(ResultSet rs, String aliasPrefix) throws Exception {
     FoodCargo foodCargo = new FoodCargo();
-    mapCommonFields(foodCargo, rs);
-    foodCargo.setExpirationDate(rs.getTimestamp("FOOD_EXPIRATION_DATE").toLocalDateTime());
-    foodCargo.setStoreTemperature(rs.getInt("FOOD_STORE_TEMPERATURE"));
+    mapCommonFields(foodCargo, rs, aliasPrefix);
+    foodCargo
+        .setExpirationDate(rs.getTimestamp(aliasPrefix + "FOOD_EXPIRATION_DATE").toLocalDateTime());
+    foodCargo.setStoreTemperature(rs.getInt(aliasPrefix + "FOOD_STORE_TEMPERATURE"));
     return foodCargo;
   }
 
-  private static ClothersCargo mapClothersCargo(ResultSet rs) throws Exception {
+  private static ClothersCargo mapClothersCargo(ResultSet rs, String aliasPrefix) throws Exception {
     ClothersCargo clothersCargo = new ClothersCargo();
-    mapCommonFields(clothersCargo, rs);
-    clothersCargo.setMaterial(rs.getString("CLOTHERS_SIZE"));
-    clothersCargo.setSize(rs.getString("CLOTHERS_MATERIAL"));
+    mapCommonFields(clothersCargo, rs, aliasPrefix);
+    clothersCargo.setMaterial(rs.getString(aliasPrefix + "CLOTHERS_SIZE"));
+    clothersCargo.setSize(rs.getString(aliasPrefix + "CLOTHERS_MATERIAL"));
     return clothersCargo;
   }
 
-  private static void mapCommonFields(Cargo cargo, ResultSet rs) throws Exception {
+  private static void mapCommonFields(Cargo cargo, ResultSet rs, String aliasPrefix)
+      throws Exception {
     cargo.setId(rs.getLong("ID"));
-    cargo.setName(rs.getString("NAME"));
-    cargo.setWeight(rs.getInt("WEIGHT"));
+    cargo.setName(rs.getString(aliasPrefix + "NAME"));
+    cargo.setWeight(rs.getInt(aliasPrefix + "WEIGHT"));
   }
 }

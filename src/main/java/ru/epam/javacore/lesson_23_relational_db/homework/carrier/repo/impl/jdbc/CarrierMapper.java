@@ -25,4 +25,18 @@ public final class CarrierMapper {
     }
   }
 
+  public static Carrier mapCarrier(ResultSet rs, String aliasPrefix) {
+    try {
+      Carrier carrier = new Carrier();
+      carrier.setId(rs.getLong(aliasPrefix + "ID"));
+      carrier.setName(rs.getString(aliasPrefix + "NAME"));
+      carrier.setAddress(rs.getString(aliasPrefix + "ADDRESS"));
+      carrier.setCarrierType(CarrierType.valueOf(rs.getString(aliasPrefix + "ENTITY_TYPE")));
+
+      return carrier;
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
 }

@@ -13,6 +13,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.carrier.service.Carrier
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.domain.Transportation;
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.service.TransportationService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,7 +62,7 @@ public class InMemoryStorageInitor implements StorageInitor {
 
   private FoodCargo createFoodCargo(int index) {
     FoodCargo cargo = new FoodCargo();
-    cargo.setExpirationDate(new Date());
+    cargo.setExpirationDate(LocalDateTime.now());
     cargo.setStoreTemperature(index);
     cargo.setWeight(ThreadLocalRandom.current().nextInt(1, 100 + 1));
     cargo.setName("Milk");

@@ -10,6 +10,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.cargo.domain.FoodCargo;
 import ru.epam.javacore.lesson_23_relational_db.homework.cargo.repo.impl.CommonCargoRepo;
 import ru.epam.javacore.lesson_23_relational_db.homework.cargo.search.CargoSearchCondition;
 import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.repo.jdbc.QueryWrapper;
+import ru.epam.javacore.lesson_23_relational_db.homework.common.solutions.repo.jdbc.ResultSetExtractor;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.IdGenerator;
 
 import java.sql.Timestamp;
@@ -27,7 +28,9 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
   @Override
   public Cargo[] findByName(String name) {
     String sql = "SELECT * FROM CARGO WHERE NAME = ?";
-    return QueryWrapper.select(sql, CargoMapper::mapCargo).toArray(new Cargo[0]);
+    return QueryWrapper.select(sql, CargoMapper::mapCargo, ps -> {
+      ps.setString(1, name);
+    }).toArray(new Cargo[0]);
   }
 
   @Override
@@ -39,10 +42,10 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
           .stream()
           .map(Enum::toString)
           .collect(Collectors.joining(","));
-      sql += " ORDER BY " + orderBy;
+      sql += " ORDER BY " + orderBy + " " + searchCondition.getOrderType();
     }
 
-    return QueryWrapper.select(sql, CargoMapper::mapCargo);
+    return QueryWrapper.select(sql, (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
   }
 
   @Override
@@ -121,7 +124,8 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
 
   @Override
   public List<Cargo> getAll() {
-    return QueryWrapper.select("SELECT * FROM CARGO", CargoMapper::mapCargo);
+    return QueryWrapper
+        .select("SELECT * FROM CARGO", (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
   }
 
   @Override

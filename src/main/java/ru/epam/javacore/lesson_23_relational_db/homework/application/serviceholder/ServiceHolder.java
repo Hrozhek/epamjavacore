@@ -6,8 +6,8 @@ import ru.epam.javacore.lesson_23_relational_db.homework.cargo.repo.impl.jdbc.Ca
 import ru.epam.javacore.lesson_23_relational_db.homework.cargo.service.CargoService;
 import ru.epam.javacore.lesson_23_relational_db.homework.cargo.service.CargoServiceImpl;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.CarrierArrayRepoImpl;
-import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.jdbc.CarrierCollectionRepoImpl;
-import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.CarrierRelationalDbRepoImpl;
+import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.CarrierCollectionRepoImpl;
+import ru.epam.javacore.lesson_23_relational_db.homework.carrier.repo.impl.jdbc.CarrierRelationalDbRepoImpl;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.service.CarrierService;
 import ru.epam.javacore.lesson_23_relational_db.homework.carrier.service.CarrierServiceImpl;
 import ru.epam.javacore.lesson_23_relational_db.homework.transportation.repo.impl.TransportationArrayRepoImpl;
