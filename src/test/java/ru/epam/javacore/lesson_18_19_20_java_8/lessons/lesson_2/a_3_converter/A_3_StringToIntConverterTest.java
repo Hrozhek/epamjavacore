@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class A_3_StringToIntConverterTest {
 
+
   static A_3_StringToIntConverter converter;
 
   @BeforeAll
