@@ -35,4 +35,5 @@ class A_3_StringToIntConverterTest {
 
     assertNull(result);
   }
+
 }
