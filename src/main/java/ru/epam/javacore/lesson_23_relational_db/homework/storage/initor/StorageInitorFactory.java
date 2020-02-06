@@ -4,6 +4,7 @@ import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.fileinit
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.fileinitor.xml.dom.XmlDomFileDataInitor;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.fileinitor.xml.sax.XmlSaxFileDataInitor;
 import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.multithread.MultiThreadStorageInitor;
+import ru.epam.javacore.lesson_23_relational_db.homework.storage.initor.relationldb.RelationalDbStorageInitor;
 
 public final class StorageInitorFactory {
 
@@ -26,9 +27,11 @@ public final class StorageInitorFactory {
       case XML_SAX_FILE: {
         return new XmlSaxFileDataInitor();
       }
-
       case MULTI_THREAD: {
         return new MultiThreadStorageInitor();
+      }
+      case SQL_SCRIPTS:{
+        return new RelationalDbStorageInitor();
       }
       default: {
         throw new RuntimeException("Unknown storage init type " + initStorageType);
