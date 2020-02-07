@@ -15,7 +15,6 @@ public class A_4_Transactions {
         try {
             connection = A_2_H2_SimpleConnection
                     .getInstance().getConnection();
-
             connection.setAutoCommit(false);
             a_3_saveUser(connection, new User(33, "WWW AAAA " + System.currentTimeMillis()));
             a_3_saveUser(connection, new User(33, "SSS 2 " + System.currentTimeMillis()));
