@@ -8,12 +8,7 @@ import ru.epam.javacore.lesson_24_db_web.homework.cargo.search.CargoSearchCondit
 import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.utils.CollectionUtils;
 import ru.epam.javacore.lesson_24_db_web.homework.storage.IdGenerator;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class CargoCollectionRepoImpl extends CommonCargoRepo {
 
@@ -64,6 +59,11 @@ public class CargoCollectionRepoImpl extends CommonCargoRepo {
   public void save(Cargo cargo) {
     cargo.setId(IdGenerator.generateId());
     cargoCollection.add(cargo);
+  }
+
+  @Override
+  public void save(Collection<Cargo> cargos) {
+    cargos.forEach(this::save);
   }
 
   @Override

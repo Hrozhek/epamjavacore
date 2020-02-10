@@ -1,8 +1,6 @@
 package ru.epam.javacore.lesson_24_db_web.homework.cargo.repo.impl.jdbc;
 
 
-import static ru.epam.javacore.lesson_24_db_web.homework.storage.Storage.cargoCollection;
-
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.CargoType;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.ClothersCargo;
@@ -13,127 +11,131 @@ import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.repo.jdbc.Que
 import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.repo.jdbc.ResultSetExtractor;
 import ru.epam.javacore.lesson_24_db_web.homework.storage.IdGenerator;
 
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
 
-  @Override
-  public Optional<Cargo> getByIdFetchingTransportations(long id) {
-    return findById(id);
-  }
+    private static final String INSERT_CARGO = "INSERT INTO CARGO "
+            + "(ID, "
+            + "NAME, "
+            + "WEIGHT, "
+            + "ENTITY_TYPE, "
+            + "FOOD_EXPIRATION_DATE, "
+            + "FOOD_STORE_TEMPERATURE,"
+            + "CLOTHERS_SIZE,"
+            + "CLOTHERS_MATERIAL)"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-  @Override
-  public Cargo[] findByName(String name) {
-    String sql = "SELECT * FROM CARGO WHERE NAME = ?";
-    return QueryWrapper.select(sql, CargoMapper::mapCargo, ps -> {
-      ps.setString(1, name);
-    }).toArray(new Cargo[0]);
-  }
-
-  @Override
-  public List<Cargo> search(CargoSearchCondition searchCondition) {
-    String sql = "SELECT * FROM CARGO";
-
-    if (searchCondition.needSorting()) {
-      String orderBy = searchCondition.getSortFields()
-          .stream()
-          .map(Enum::toString)
-          .collect(Collectors.joining(","));
-      sql += " ORDER BY " + orderBy + " " + searchCondition.getOrderType();
+    @Override
+    public Optional<Cargo> getByIdFetchingTransportations(long id) {
+        return findById(id);
     }
 
-    return QueryWrapper.select(sql, (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
-  }
+    @Override
+    public Cargo[] findByName(String name) {
+        String sql = "SELECT * FROM CARGO WHERE NAME = ?";
+        return QueryWrapper.select(sql, CargoMapper::mapCargo, ps -> {
+            ps.setString(1, name);
+        }).toArray(new Cargo[0]);
+    }
 
-  @Override
-  public Optional<Cargo> findById(Long id) {
-    String sql = "SELECT * FROM CARGO WHERE ID = ?";
-    return QueryWrapper.selectOne(sql,
-        CargoMapper::mapCargo,
-        ps -> {
-          ps.setLong(1, id);
+    @Override
+    public List<Cargo> search(CargoSearchCondition searchCondition) {
+        String sql = "SELECT * FROM CARGO";
+
+        if (searchCondition.needSorting()) {
+            String orderBy = searchCondition.getSortFields()
+                    .stream()
+                    .map(Enum::toString)
+                    .collect(Collectors.joining(","));
+            sql += " ORDER BY " + orderBy + " " + searchCondition.getOrderType();
+        }
+
+        return QueryWrapper.select(sql, (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
+    }
+
+    @Override
+    public Optional<Cargo> findById(Long id) {
+        String sql = "SELECT * FROM CARGO WHERE ID = ?";
+        return QueryWrapper.selectOne(sql,
+                CargoMapper::mapCargo,
+                ps -> {
+                    ps.setLong(1, id);
+                });
+    }
+
+    @Override
+    public void save(Cargo cargo) {
+        cargo.setId(IdGenerator.generateId());
+        QueryWrapper.executeUpdate(INSERT_CARGO, ps -> {
+            this.mapCargoToPreparedStatement(ps, cargo);
         });
-  }
-
-  @Override
-  public void save(Cargo cargo) {
-    cargo.setId(IdGenerator.generateId());
-    if (cargo.getCargoType().equals(CargoType.CLOTHERS)) {
-      saveClothersCargo((ClothersCargo) cargo);
-    } else if (cargo.getCargoType().equals(CargoType.FOOD)) {
-      saveFoodCargo((FoodCargo) cargo);
     }
-  }
 
-  private void saveFoodCargo(FoodCargo foodCargo) {
-    String sql = "INSERT INTO CARGO "
-        + "(ID, "
-        + "NAME, "
-        + "WEIGHT, "
-        + "ENTITY_TYPE, "
-        + "FOOD_EXPIRATION_DATE, "
-        + "FOOD_STORE_TEMPERATURE)"
-        + " VALUES (?, ?, ?, ?, ?, ?)";
+    @Override
+    public void save(Collection<Cargo> cargos) {
+        cargos.forEach(c -> {
+            c.setId(IdGenerator.generateId());
+        });
+        QueryWrapper.executeUpdateAsBatch(INSERT_CARGO, cargos, this::mapCargoToPreparedStatement);
+    }
 
-    QueryWrapper.executeUpdate(sql, ps -> {
-      int index = 0;
-      ps.setLong(++index, foodCargo.getId());
-      ps.setString(++index, foodCargo.getName());
-      ps.setInt(++index, foodCargo.getWeight());
-      ps.setString(++index, CargoType.FOOD.toString());
-      ps.setTimestamp(++index, Timestamp.valueOf(foodCargo.getExpirationDate()));
-      ps.setInt(++index, foodCargo.getStoreTemperature());
-    });
-  }
 
-  private void saveClothersCargo(ClothersCargo clothersCargo) {
-    String sql = "INSERT INTO CARGO "
-        + "(ID, "
-        + "NAME, "
-        + "WEIGHT, "
-        + "ENTITY_TYPE, "
-        + "CLOTHERS_SIZE, "
-        + "CLOTHERS_MATERIAL)"
-        + " VALUES (?, ?, ?, ?,?,?)";
+    private void mapCargoToPreparedStatement(PreparedStatement ps, Cargo cargo) throws SQLException {
+        int index = 0;
+        ps.setLong(++index, cargo.getId());
+        ps.setString(++index, cargo.getName());
+        ps.setInt(++index, cargo.getWeight());
+        ps.setString(++index, cargo instanceof FoodCargo
+                ? CargoType.FOOD.toString() : CargoType.CLOTHERS.toString());
 
-    QueryWrapper.executeUpdate(sql, ps -> {
-      int index = 0;
-      ps.setLong(++index, clothersCargo.getId());
-      ps.setString(++index, clothersCargo.getName());
-      ps.setInt(++index, clothersCargo.getWeight());
-      ps.setString(++index, CargoType.CLOTHERS.toString());
-      ps.setString(++index, clothersCargo.getSize());
-      ps.setString(++index, clothersCargo.getMaterial());
-    });
-  }
+        if (cargo instanceof FoodCargo) {
+            FoodCargo foodCargo = (FoodCargo) cargo;
+            ps.setTimestamp(++index, Timestamp.valueOf(foodCargo.getExpirationDate()));
+            ps.setInt(++index, foodCargo.getStoreTemperature());
+        } else {
+            ps.setNull(++index, Types.TIMESTAMP);
+            ps.setNull(++index, Types.INTEGER);
+        }
 
-  @Override
-  public boolean update(Cargo entity) {
-    return true;
-  }
+        if (cargo instanceof ClothersCargo) {
+            ClothersCargo clothersCargo = (ClothersCargo) cargo;
+            ps.setString(++index, clothersCargo.getSize());
+            ps.setString(++index, clothersCargo.getMaterial());
+        } else {
+            ps.setNull(++index, Types.VARCHAR);
+            ps.setNull(++index, Types.VARCHAR);
+        }
+    }
 
-  @Override
-  public boolean deleteById(Long id) {
-    int affected = QueryWrapper.executeUpdate("DELETE FROM CARGO WHERE ID = ?", ps -> {
-      ps.setLong(1, id);
-    });
+    @Override
+    public boolean update(Cargo entity) {
+        return true;
+    }
 
-    return affected > 0;
-  }
+    @Override
+    public boolean deleteById(Long id) {
+        int affected = QueryWrapper.executeUpdate("DELETE FROM CARGO WHERE ID = ?", ps -> {
+            ps.setLong(1, id);
+        });
 
-  @Override
-  public List<Cargo> getAll() {
-    return QueryWrapper
-        .select("SELECT * FROM CARGO", (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
-  }
+        return affected > 0;
+    }
 
-  @Override
-  public int countAll() {
-    return QueryWrapper.selectOne("SELECT COUNT(*) AS CNT FROM CARGO",
-        (rs) -> rs.getInt("CNT")).orElse(0);
-  }
+    @Override
+    public List<Cargo> getAll() {
+        return QueryWrapper
+                .select("SELECT * FROM CARGO", (ResultSetExtractor<Cargo>) CargoMapper::mapCargo);
+    }
+
+    @Override
+    public int countAll() {
+        return QueryWrapper.selectOne("SELECT COUNT(*) AS CNT FROM CARGO",
+                (rs) -> rs.getInt("CNT")).orElse(0);
+    }
 
 }

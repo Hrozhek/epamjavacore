@@ -11,12 +11,7 @@ import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.utils.ArrayUt
 import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.utils.CollectionUtils;
 import ru.epam.javacore.lesson_24_db_web.homework.storage.IdGenerator;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class CargoArrayRepoImpl extends CommonCargoRepo {
 
@@ -116,6 +111,11 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
     cargo.setId(IdGenerator.generateId());
     cargoArray[cargoIndex] = cargo;
     cargoIndex++;
+  }
+
+  @Override
+  public void save(Collection<Cargo> cargos) {
+    cargos.forEach(this::save);
   }
 
   @Override
