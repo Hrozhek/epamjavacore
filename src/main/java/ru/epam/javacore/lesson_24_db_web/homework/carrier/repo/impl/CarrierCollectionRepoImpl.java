@@ -7,11 +7,8 @@ import ru.epam.javacore.lesson_24_db_web.homework.carrier.domain.Carrier;
 import ru.epam.javacore.lesson_24_db_web.homework.carrier.repo.CarrierRepo;
 import ru.epam.javacore.lesson_24_db_web.homework.storage.IdGenerator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.sql.Connection;
+import java.util.*;
 
 public class CarrierCollectionRepoImpl implements CarrierRepo {
 
@@ -19,6 +16,16 @@ public class CarrierCollectionRepoImpl implements CarrierRepo {
   public void save(Carrier carrier) {
     carrier.setId(IdGenerator.generateId());
     carrierCollection.add(carrier);
+  }
+
+  @Override
+  public void save(Collection<Carrier> carriers) {
+    carriers.forEach(this::save);
+  }
+
+  @Override
+  public void save(Collection<Carrier> carriers, Connection connection) {
+    this.save(carriers);
   }
 
   @Override

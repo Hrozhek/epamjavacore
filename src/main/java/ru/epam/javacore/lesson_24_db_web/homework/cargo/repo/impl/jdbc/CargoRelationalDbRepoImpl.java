@@ -78,12 +78,17 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
 
     @Override
     public void save(Collection<Cargo> cargos) {
-        cargos.forEach(c -> {
-            c.setId(IdGenerator.generateId());
-        });
+        cargos.forEach(c -> c.setId(IdGenerator.generateId()));
         QueryWrapper.executeUpdateAsBatch(INSERT_CARGO, cargos, this::mapCargoToPreparedStatement);
     }
 
+    @Override
+    public void save(Collection<Cargo> cargos, Connection connection) {
+        cargos.forEach(c -> c.setId(IdGenerator.generateId()));
+        QueryWrapper.executeUpdateAsBatch(INSERT_CARGO,
+                connection, false, cargos,
+                this::mapCargoToPreparedStatement);
+    }
 
     private void mapCargoToPreparedStatement(PreparedStatement ps, Cargo cargo) throws SQLException {
         int index = 0;

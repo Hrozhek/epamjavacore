@@ -11,8 +11,11 @@ import ru.epam.javacore.lesson_24_db_web.homework.application.serviceholder.Serv
 import ru.epam.javacore.lesson_24_db_web.homework.application.serviceholder.StorageType;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.Cargo;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.CargoField;
+import ru.epam.javacore.lesson_24_db_web.homework.cargo.domain.FoodCargo;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.search.CargoSearchCondition;
 import ru.epam.javacore.lesson_24_db_web.homework.cargo.service.CargoService;
+import ru.epam.javacore.lesson_24_db_web.homework.carrier.domain.Carrier;
+import ru.epam.javacore.lesson_24_db_web.homework.carrier.domain.CarrierType;
 import ru.epam.javacore.lesson_24_db_web.homework.carrier.service.CarrierService;
 import ru.epam.javacore.lesson_24_db_web.homework.common.business.exception.checked.InitStorageException;
 import ru.epam.javacore.lesson_24_db_web.homework.common.business.exception.checked.ReportException;
@@ -24,12 +27,8 @@ import ru.epam.javacore.lesson_24_db_web.homework.storage.initor.InitStorageType
 import ru.epam.javacore.lesson_24_db_web.homework.storage.initor.StorageInitor;
 import ru.epam.javacore.lesson_24_db_web.homework.transportation.service.TransportationService;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Application {
 
@@ -48,6 +47,7 @@ public class Application {
       StorageInitor storageInitor = getStorageInitor(InitStorageType.XML_DOM_FILE);
       storageInitor.initStorage();
 
+      demoTransactionalMethod();
       printStorageData();
       demoSearchOperations();
       demoSortOperations();
@@ -62,6 +62,22 @@ public class Application {
     }
   }
 
+  private static void demoTransactionalMethod(){
+    FoodCargo foodCargo = new FoodCargo();
+    foodCargo.setWeight(10);
+    foodCargo.setName("TEST_333");
+    foodCargo.setExpirationDate(LocalDateTime.now());
+    foodCargo.setStoreTemperature(-200);
+
+    Carrier carrier = new Carrier();
+    carrier.setName("Best carrier");
+    carrier.setAddress("Red square");
+    carrier.setCarrierType(CarrierType.CAR);
+    cargoService.saveCargosWithCarriers(
+            Collections.singletonList(foodCargo),
+            Collections.singletonList(carrier)
+    );
+  }
   private static void demoSearchOperations() {
     System.out.println("SEARCH CARGO BY ID = 1");
     System.out.println(cargoService.findById(1L));

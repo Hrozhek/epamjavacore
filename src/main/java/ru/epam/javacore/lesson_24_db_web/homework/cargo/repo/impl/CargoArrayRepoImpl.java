@@ -11,6 +11,7 @@ import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.utils.ArrayUt
 import ru.epam.javacore.lesson_24_db_web.homework.common.solutions.utils.CollectionUtils;
 import ru.epam.javacore.lesson_24_db_web.homework.storage.IdGenerator;
 
+import java.sql.Connection;
 import java.util.*;
 
 public class CargoArrayRepoImpl extends CommonCargoRepo {
@@ -116,6 +117,11 @@ public class CargoArrayRepoImpl extends CommonCargoRepo {
   @Override
   public void save(Collection<Cargo> cargos) {
     cargos.forEach(this::save);
+  }
+
+  @Override
+  public void save(Collection<Cargo> cargos, Connection connection) {
+    this.save(cargos);
   }
 
   @Override
