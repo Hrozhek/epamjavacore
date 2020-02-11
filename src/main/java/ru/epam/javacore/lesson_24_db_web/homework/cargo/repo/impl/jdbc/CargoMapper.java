@@ -46,7 +46,7 @@ public final class CargoMapper {
 
   private static void mapCommonFields(Cargo cargo, ResultSet rs, String aliasPrefix)
       throws Exception {
-    cargo.setId(rs.getLong("ID"));
+    cargo.setId(rs.getLong(aliasPrefix + "ID"));
     cargo.setName(rs.getString(aliasPrefix + "NAME"));
     cargo.setWeight(rs.getInt(aliasPrefix + "WEIGHT"));
   }

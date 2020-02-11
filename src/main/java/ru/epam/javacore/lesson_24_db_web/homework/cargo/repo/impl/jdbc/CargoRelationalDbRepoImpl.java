@@ -95,8 +95,7 @@ public class CargoRelationalDbRepoImpl extends CommonCargoRepo {
         ps.setLong(++index, cargo.getId());
         ps.setString(++index, cargo.getName());
         ps.setInt(++index, cargo.getWeight());
-        ps.setString(++index, cargo instanceof FoodCargo
-                ? CargoType.FOOD.toString() : CargoType.CLOTHERS.toString());
+        ps.setString(++index, cargo.getCargoType().toString());
 
         if (cargo instanceof FoodCargo) {
             FoodCargo foodCargo = (FoodCargo) cargo;
